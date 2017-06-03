@@ -26,6 +26,7 @@ import java.util.Map;
 
 public class AddPouchActivity extends AppCompatActivity {
 
+    private SingletonUserInfo mSingletonUserInfo = SingletonUserInfo.getInstance();
     private EditText et_dline, et_memo, et_pouch_name;
     private AutoCompleteTextView et_recei;
     private Button bt_add;
@@ -70,7 +71,7 @@ public class AddPouchActivity extends AppCompatActivity {
         NetworkTask networkTask = new NetworkTask();
         test = "register";
         Map params = new HashMap();
-        params.put("id", "14050032");
+        params.put("id", mSingletonUserInfo.getUserId());
         params.put("receiver", et_recei.getText().toString());
         params.put("deadline", et_dline.getText().toString());
         params.put("memo", et_memo.getText().toString());
@@ -84,7 +85,7 @@ public class AddPouchActivity extends AppCompatActivity {
         NetworkTask networkTask = new NetworkTask();
     test = "empty_pouch";
         Map params = new HashMap();
-        params.put("id", "14050032");
+        params.put("id", mSingletonUserInfo.getUserId());
         //params.put("id", user_id);
         networkTask.execute(params);
 

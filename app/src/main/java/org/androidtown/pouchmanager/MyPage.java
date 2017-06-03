@@ -34,6 +34,7 @@ import static android.content.Context.MODE_PRIVATE;
  */
 public class MyPage extends Fragment {
 
+    private SingletonUserInfo mSingletonUserInfo = SingletonUserInfo.getInstance();
     private View mRootView;
     private ArrayList<ListViewItem> mListViewItems;
     private ListView lvPouchList;
@@ -102,7 +103,7 @@ public class MyPage extends Fragment {
 
         Map params = new HashMap();
         params.put("code", "receivelist");
-        params.put("id", "14050032");
+        params.put("id", mSingletonUserInfo.getUserId());
         networkTask.execute(params);
 
         Log.d("sybaek", "listener");

@@ -32,6 +32,7 @@ import static android.content.Context.MODE_PRIVATE;
  */
 public class MyPouchList extends Fragment {
 
+    private SingletonUserInfo mSingletonUserInfo = SingletonUserInfo.getInstance();
     private View mRootView;
     private ArrayList<ListViewItem> mListViewItems;
     private ListView lvPouchList;
@@ -97,7 +98,7 @@ public class MyPouchList extends Fragment {
 
         Map params = new HashMap();
         params.put("code", "mylist");
-        params.put("id", "14050032");
+        params.put("id", mSingletonUserInfo.getUserId());
         networkTask.execute(params);
 
         //Log.d("sybaek_id", user_id);

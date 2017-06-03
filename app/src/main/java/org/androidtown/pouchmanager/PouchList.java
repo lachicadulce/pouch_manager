@@ -56,9 +56,6 @@ public class PouchList extends Fragment {
 
 
     public PouchList() {
-        // Required empty public constructor
-        //loginPreferences = this.getActivity().getSharedPreferences("loginPrefs", MODE_PRIVATE);
-        //user_id = loginPreferences.getString("id", "");
     }
 
     public void getPouchListFunc() {
