@@ -2,6 +2,7 @@ package org.androidtown.pouchmanager;
 
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +12,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ScrollView;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,7 +26,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PouchDetail extends AppCompatActivity {
+public class PouchDetail extends AppCompatActivity implements OnMapReadyCallback {
 
     private EditText et_pouch_name;
     private EditText et_sender_receiver;
@@ -26,6 +34,8 @@ public class PouchDetail extends AppCompatActivity {
     private Button bt_ok;
     private String pouch_name;
     private EditText et_status;
+    private String sender, charge;
+    private double latitude,longitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +52,9 @@ public class PouchDetail extends AppCompatActivity {
         et_pouch_name.setText(pouch_name);
         et_status = (EditText) findViewById(R.id.et_status);
 
+        latitude = 37.2099949;
+        longitude = 126.9750946;
+
         bt_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,6 +62,26 @@ public class PouchDetail extends AppCompatActivity {
             }
         });
         getPouchDetailFunc();
+
+        et_pouch_name.setFocusable(false);
+        et_memo.setFocusable(false);
+        et_status.setFocusable(false);
+        et_sender_receiver.setFocusable(false);
+
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        LatLng CS = new LatLng(latitude, longitude);
+
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(CS);
+        markerOptions.title("발신자: "+sender);//발신자
+        markerOptions.snippet("담당자: "+charge);//담당자
+        googleMap.addMarker(markerOptions);
+
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(CS));
+        googleMap.animateCamera(CameraUpdateFactory.zoomTo(14));
     }
 
     public void getPouchDetailFunc() {
@@ -78,6 +111,13 @@ public class PouchDetail extends AppCompatActivity {
                     et_sender_receiver.setText("발신: "+row.getString("sender")+" 담당: "+row.getString("in_charge"));
                     et_memo.setText(row.getString("memo"));
                     et_status.setText("상태: "+row.getString("status"));
+                    sender = row.getString("sender");
+                    charge = row.getString("in_charge");
+                    //ToDo latitude and longitude
+
+                    android.app.FragmentManager fragmentManager = getFragmentManager();
+                    MapFragment mapFragment = (MapFragment)fragmentManager.findFragmentById(R.id.map);
+                    mapFragment.getMapAsync(PouchDetail.this);
                 } catch (Exception e) {
 
                 }
