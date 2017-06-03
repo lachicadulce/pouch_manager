@@ -21,6 +21,8 @@ import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private SingletonUserInfo mSingletonUserInfo = SingletonUserInfo.getInstance();
+
     private String id, pw;
     private Button btnLogin;
     private EditText et_id;
@@ -42,10 +44,19 @@ public class LoginActivity extends AppCompatActivity {
         loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
         loginPrefsEditor = loginPreferences.edit();
 
+        // TODO 자동 로그인 기능이 있기 때문에 로그아웃 기능 구현 필요
         saveLogin = loginPreferences.getBoolean("saveLogin", false);
         if (saveLogin == true) {
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
+            mSingletonUserInfo.setUserId(loginPreferences.getString("id", null));
+            if (mSingletonUserInfo.getUserId() == null) {
+                // 자동 로그인 ID가 이상함
+            } else {
+                // 자동 로그인
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
+
+                this.finish();
+            }
         }
 
         ch_rem.setChecked(true);
@@ -97,6 +108,13 @@ public class LoginActivity extends AppCompatActivity {
                     Log.d("sybaek", new JSONObject(s).getBoolean("result") + "");
                     if (new JSONObject(s).getBoolean("result")) {
                         // true
+
+                        // Add userId to singleton
+                        mSingletonUserInfo.setUserId(id);
+
+                        // Add userId to preference
+                        loginPrefsEditor.putString("id", id);
+
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
                     } else {

@@ -36,6 +36,8 @@ import static android.content.Context.MODE_PRIVATE;
  */
 public class PouchList extends Fragment {
 
+    private SingletonUserInfo mSingletonUserInfo = SingletonUserInfo.getInstance();
+
     private View mRootView;
     private ListView lvPouchList;
     private ListViewAdapter mAdapter;
@@ -64,7 +66,7 @@ public class PouchList extends Fragment {
 
         Map params = new HashMap();
         params.put("code", "list");
-        params.put("id", "14050032");
+        params.put("id", mSingletonUserInfo.getUserId());
         networkTask.execute(params);
 
         Log.d("sybaek", "listener");
