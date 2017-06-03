@@ -113,7 +113,11 @@ public class PouchDetail extends AppCompatActivity implements OnMapReadyCallback
                     et_status.setText("상태: "+row.getString("status"));
                     sender = row.getString("sender");
                     charge = row.getString("in_charge");
-                    //ToDo latitude and longitude
+                    if (charge != "no one") {
+                        latitude = row.getDouble("latitude");
+                        longitude = row.getDouble("longitude");
+                    }
+                    Log.d("sybaek", charge+" 위치: "+latitude+", " + longitude);
 
                     android.app.FragmentManager fragmentManager = getFragmentManager();
                     MapFragment mapFragment = (MapFragment)fragmentManager.findFragmentById(R.id.map);
