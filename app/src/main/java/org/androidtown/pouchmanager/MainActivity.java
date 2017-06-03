@@ -11,23 +11,15 @@ import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -49,9 +41,6 @@ public class MainActivity extends AppCompatActivity {
     public ArrayList<ListViewItem> mMyPageItems;
 
     private PouchList mPouchListFrag;
-//    private MyPouchList mMyPouchListFrag;
-//    private MyPouchChargedList mMyPouchChargedListFrag;
-//    private MyPage mMyPageFrag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -195,28 +184,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         sendBroadcast(sendIntent);
-
-        /*fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent sendIntent = new Intent("org.androidtown.pouchmanager.action.LOCATION_UPDATE_REQUEST");
-
-                if (isGpsStarted) {
-                    // GPS 가 시작돼 있으면
-                    sendIntent.putExtra("request", "stop");
-                    isGpsStarted = false;
-                } else {
-                    // 아니면
-                    sendIntent.putExtra("request", "start");
-                    isGpsStarted = true;
-                }
-
-                // 브로드캐스트
-                sendBroadcast(sendIntent);
-
-                Toast.makeText(getApplicationContext(), "request location update: " + isGpsStarted, Toast.LENGTH_SHORT).show();
-            }
-        });*/
     }
 
     private void mSendChargeList(String mpouch_name) {
@@ -259,7 +226,7 @@ public class MainActivity extends AppCompatActivity {
 
             HttpClient post = http.create();
             post.request();
-            Log.d("sybaek","네트워크연결한느낌인데?");
+
             if (post.getHttpStatusCode() == 200) {
                 String body = post.getBody();
                 Log.d("sybaek", body);

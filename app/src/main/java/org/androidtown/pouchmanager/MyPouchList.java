@@ -38,9 +38,6 @@ public class MyPouchList extends Fragment {
     private ListView lvPouchList;
     private ListViewAdapter mAdapter;
 
-    //private SharedPreferences loginPreferences;
-    //private String user_id;
-
     public static MyPouchList newInstance() {
 
         Bundle args = new Bundle();
@@ -51,9 +48,6 @@ public class MyPouchList extends Fragment {
     }
 
     public MyPouchList() {
-        // Required empty public constructor
-        //loginPreferences = this.getActivity().getSharedPreferences("loginPrefs", MODE_PRIVATE);
-        //user_id = loginPreferences.getString("id", "");
     }
 
     @Override

@@ -30,7 +30,6 @@ public class LoginActivity extends AppCompatActivity {
     private CheckBox ch_rem;
     private SharedPreferences loginPreferences;
     private SharedPreferences.Editor loginPrefsEditor;
-    private Boolean saveLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +102,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
+                        finish();
                     } else {
                         // false
                         Log.d("sybaek", "Login fail");
@@ -112,11 +112,6 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         }
-
-        /*@Override
-        protected void onProgressUpdate(Object[] values) {
-            super.onProgressUpdate(values);
-        }*/
 
         @Override
         protected String doInBackground(Map... maps) {

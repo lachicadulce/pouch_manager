@@ -51,9 +51,6 @@ public class MyPouchChargedList extends Fragment {
     }
 
     public MyPouchChargedList() {
-        // Required empty public constructor
-        //loginPreferences = this.getActivity().getSharedPreferences("loginPrefs", MODE_PRIVATE);
-        //user_id = loginPreferences.getString("id", "");
     }
 
 

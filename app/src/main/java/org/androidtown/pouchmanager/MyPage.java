@@ -39,7 +39,6 @@ public class MyPage extends Fragment {
     private ArrayList<ListViewItem> mListViewItems;
     private ListView lvPouchList;
     private ListViewAdapter mAdapter;
-    private String user_id;
 
     public static MyPage newInstance() {
 
@@ -152,7 +151,6 @@ public class MyPage extends Fragment {
 
             HttpClient post = http.create();
             post.request();
-            Log.d("sybaek","네트워크연결한느낌인데?");
             if (post.getHttpStatusCode() == 200) {
                 String body = post.getBody();
                 Log.d("sybaek", body);

@@ -33,7 +33,7 @@ public class AddPouchActivity extends AppCompatActivity {
 
     private String test;
 
-    private String[] receivers = { "14050001", "14050020", "14050032", "11050038"};//받아오도록 수정
+    private String[] receivers = { "14050001", "14050020", "14050032", "11050038"};//ToDo 받아오도록 수정
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
