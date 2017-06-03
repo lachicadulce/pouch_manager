@@ -44,20 +44,6 @@ public class LoginActivity extends AppCompatActivity {
         loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
         loginPrefsEditor = loginPreferences.edit();
 
-        // TODO 자동 로그인 기능이 있기 때문에 로그아웃 기능 구현 필요
-        saveLogin = loginPreferences.getBoolean("saveLogin", false);
-        if (saveLogin == true) {
-            mSingletonUserInfo.setUserId(loginPreferences.getString("id", null));
-            if (mSingletonUserInfo.getUserId() == null) {
-                // 자동 로그인 ID가 이상함
-            } else {
-                // 자동 로그인
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
-
-                this.finish();
-            }
-        }
 
         ch_rem.setChecked(true);
 
