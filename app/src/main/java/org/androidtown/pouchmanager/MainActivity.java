@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
@@ -16,8 +17,11 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 import java.util.ArrayList;
@@ -168,6 +172,30 @@ public class MainActivity extends AppCompatActivity {
         // 버전이 M 보다 낮거나 이미 권한이 있는 경우
         Intent intent = new Intent(this, MyService.class);
         startService(intent);
+    }
+
+    //액션버튼 메뉴 액션바에 집어 넣기
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    //액션버튼을 클릭했을때의 동작
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        if (!isGpsStarted) {
+            Toast.makeText(this, "로그아웃됐습니다", Toast.LENGTH_SHORT).show();
+            loginPrefsEditor.putBoolean("saveLogin", false);
+            loginPrefsEditor.putString("id", "");
+            loginPrefsEditor.putString("pw", "");
+
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+        }
+        else
+            Toast.makeText(this, "담당목록이 있습니다", Toast.LENGTH_SHORT).show();
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
