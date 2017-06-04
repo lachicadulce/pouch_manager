@@ -26,6 +26,7 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
+    private BackPressCloseHandler backPressCloseHandler;
     private final int MY_PERMISSIONS_REQUEST = 100;
     private boolean isGpsStarted;
     private int mCurrentPage;
@@ -46,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        backPressCloseHandler = new BackPressCloseHandler(this);
 
         mPouchListItems = new ArrayList<>();
         mMyPouchListItems = new ArrayList<>();
@@ -165,6 +168,12 @@ public class MainActivity extends AppCompatActivity {
         // 버전이 M 보다 낮거나 이미 권한이 있는 경우
         Intent intent = new Intent(this, MyService.class);
         startService(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        backPressCloseHandler.onBackPressed();
     }
 
     private void setGpsService() {
